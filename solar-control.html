@@ -13,8 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="solar-control.css" />
-    <script src="solar-control.js" defer></script>
+    <script src="script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
   </head>
   <body class="site-body solar-control-page">
@@ -77,25 +76,40 @@
       <section class="solar-tool-section solar-output-section" aria-labelledby="output-comparison-title">
         <div class="container solar-tool-grid">
           <div class="solar-tool-intro">
-            <h2 id="output-comparison-title">Compare solar output on hot days</h2>
-            <p>During a heatwave, household electricity use for cooling can rise while high panel temperatures can lower solar output. Compare your system's generation on a typical sunny day and a hot, sunny day. Readings are usually available on an inverter display or in a solar monitoring app.</p>
-            <p>Cloud cover, shading, dust and equipment condition can also affect generation. Compare days with similar sunlight and similar system conditions. The result is an observed difference in generation. It cannot show whether heat caused the change or whether generation met your household's electricity needs.</p>
+            <h2 id="output-comparison-title">Compare solar output in real conditions</h2>
+            <p>Solar panels use sunlight to make electricity. On a heatwave day, very hot panels can slow down and make a little less power, much like a phone or laptop can slow down when it overheats. Compare your daily readings to see how your system did in different weather.</p>
+            <p>Clouds and rain can also mean less sunlight reaches your panels, while shade, dust and equipment condition can affect the total too. The comparison shows the difference between your readings; it cannot tell you that weather was the only cause.</p>
           </div>
           <form class="solar-form solar-output-form" id="solarComparisonForm" novalidate>
             <div class="solar-field">
-              <label for="typicalGeneration">Typical sunny day generation <span>(kWh)</span></label>
+              <label for="baselineGeneration">Normal sunny day (kWh)</label>
               <div class="solar-number-control">
-                <input id="typicalGeneration" name="typicalGeneration" type="number" min="0" step="any" inputmode="decimal" required aria-describedby="typicalGenerationHint" />
+                <input id="baselineGeneration" name="baselineGeneration" type="number" min="0" step="any" inputmode="decimal" required aria-describedby="baselineGenerationHint" />
               </div>
-              <small id="typicalGenerationHint">Enter the day's total from your system</small>
+              <small id="baselineGenerationHint">A clear, comfortable sunny day from your app or inverter.</small>
             </div>
             <div class="solar-field">
-              <label for="hotGeneration">Hot, sunny day generation <span>(kWh)</span></label>
-              <div class="solar-number-control">
-                <input id="hotGeneration" name="hotGeneration" type="number" min="0" step="any" inputmode="decimal" required aria-describedby="hotGenerationHint" />
-              </div>
-              <small id="hotGenerationHint">Use a reading from a different day</small>
+              <label for="comparisonScenario">Day to compare</label>
+              <select id="comparisonScenario" name="comparisonScenario" aria-describedby="comparisonScenarioHint">
+                <option value="cool">Cool sunny day</option>
+                <option value="warm" selected>Warm sunny day</option>
+                <option value="heatwave">Extreme heatwave day</option>
+                <option value="overcast">Cloudy or rainy day</option>
+                <option value="other">Other day</option>
+              </select>
+              <small id="comparisonScenarioHint">Choose the kind of day you want to compare.</small>
             </div>
+            <div class="solar-field">
+              <label for="scenarioGeneration">Comparison day (kWh)</label>
+              <div class="solar-number-control">
+                <input id="scenarioGeneration" name="scenarioGeneration" type="number" min="0" step="any" inputmode="decimal" required aria-describedby="scenarioGenerationHint" />
+              </div>
+              <small id="scenarioGenerationHint">Your solar total on the day you want to compare.</small>
+            </div>
+            <details class="solar-calculation-note">
+              <summary>How this is calculated</summary>
+              <p>We compare your two daily readings to show the percentage drop or gain. Very hot panels, clouds or rain can mean less electricity because panels need sunlight, not heat, to make power.</p>
+            </details>
             <div class="solar-form-actions">
               <button class="solar-button" type="submit">Compare readings <i class="bi bi-arrow-left-right" aria-hidden="true"></i></button>
               <button class="solar-reset-button" type="reset">Reset</button>
@@ -110,7 +124,7 @@
         <div class="container">
           <div class="solar-wide-heading">
             <h2 id="system-check-title">Solar System Check</h2>
-            <p class="solar-section-lead">Before hot weather raises household electricity use for cooling, record what you know about your solar setup. This checklist is generated from your answers.</p>
+            <p class="solar-section-lead">Heatwaves can push the power grid to its limit right when your household needs cooling the most, turning a hot day into an emergency if power drops. Checking your solar setup before hot weather is a practical part of heatwave disaster preparedness, helping keep fans, cooling, fridges, and phones running when outside power isn't reliable.<br><br>Use your checklist answers to spot weak spots early and plan which essentials to protect first if an outage hits. That way you're ready ahead of time to focus limited power on keeping your household safe until conditions calm down.</p>
           </div>
 
           <form class="solar-assessment-form" id="systemCheckForm" novalidate>

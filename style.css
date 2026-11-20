@@ -1470,6 +1470,24 @@ body.site-body {
   padding: 10px 0;
 }
 
+.about-page .site-header,
+.contact-page .site-header {
+  position: relative;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(243,237,221,.13);
+  background: rgba(16,43,42,.98);
+}
+
+.contact-page .site-header {
+  position: sticky;
+  top: 0;
+}
+
+.about-page .site-header {
+  position: sticky;
+  top: 0;
+}
+
 .site-brand {
   display: inline-flex;
   align-items: center;
@@ -8607,148 +8625,3 @@ body .monitoring-page{
   outline: 3px solid var(--rust);
   outline-offset: 4px;
 }
-
-.monitoring-page .heat-monitoring-main,
-.monitoring-page .heat-monitoring-main p,
-.monitoring-page .heat-monitoring-main label,
-.monitoring-page .heat-monitoring-main input,
-.monitoring-page .heat-monitoring-main select,
-.monitoring-page .heat-monitoring-main button,
-.monitoring-page .heat-monitoring-main td,
-.monitoring-page .heat-monitoring-main th {
-  font-size: clamp(0.88rem, 0.82rem + 0.22vw, 1.05rem);
-}
-.monitoring-page .heat-monitoring-main h1 { font-size: clamp(2.35rem, 1.5rem + 4.2vw, 5.1rem); }
-.monitoring-page .heat-monitoring-main h2 { font-size: clamp(1.8rem, 1.25rem + 2.15vw, 3.15rem); }
-.monitoring-page .heat-monitoring-main h3 { font-size: clamp(1.1rem, 0.98rem + 0.65vw, 1.55rem); }
-.monitoring-page .heat-monitoring-main .weather-eyebrow,
-.monitoring-page .heat-monitoring-main .climate-context-label,
-.monitoring-page .heat-monitoring-main .preparation-range-label {
-  font-size: clamp(0.68rem, 0.63rem + 0.2vw, 0.82rem);
-  letter-spacing: 0.13em;
-}
-
-.monitoring-page .enhanced-section {
-  margin-top: clamp(3.5rem, 7vw, 6.5rem);
-  padding: clamp(1.25rem, 3.2vw, 2.8rem);
-  border: 1px solid rgba(243, 237, 221, 0.15);
-  border-radius: 1.4rem;
-  background: rgba(16, 43, 42, 0.94);
-  color: var(--monitor-cream);
-  box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.12);
-}
-.monitoring-page .enhanced-section .preparation-heading { max-width: 52rem; margin-bottom: clamp(1.5rem, 3vw, 2.4rem); }
-.monitoring-page .enhanced-section .preparation-heading p { max-width: 44rem; color: rgba(243, 237, 221, 0.75); line-height: 1.7; }
-.monitoring-page .enhanced-calculator {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  align-items: end;
-}
-.monitoring-page .enhanced-calculator .temperature-calculator-input { min-width: 0; }
-.monitoring-page .enhanced-calculator label,
-.monitoring-page .preparation-interactive label {
-  display: block;
-  margin-bottom: 0.55rem;
-  color: var(--monitor-cream);
-  font-weight: 600;
-}
-.monitoring-page .enhanced-calculator input,
-.monitoring-page .preparation-interactive select {
-  width: 100%;
-  min-height: 3.1rem;
-  padding: 0.75rem 0.9rem;
-  border: 1px solid rgba(243, 237, 221, 0.28);
-  border-radius: 0.7rem;
-  background: #fff9eb;
-  color: #102b2a;
-}
-.monitoring-page .enhanced-calculator button {
-  min-height: 3.1rem;
-  padding: 0.75rem 1.15rem;
-  border: 1px solid var(--monitor-yellow);
-  border-radius: 0.7rem;
-  background: var(--monitor-yellow);
-  color: var(--monitor-teal);
-  font-weight: 700;
-  transition: transform 180ms ease, filter 180ms ease;
-}
-.monitoring-page .enhanced-calculator button:hover { transform: translateY(-2px); filter: brightness(0.96); }
-.monitoring-page .temperature-change-result,
-.monitoring-page .history-fetch-status {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding: 1rem 1.1rem;
-  border-radius: 0.7rem;
-  background: rgba(255, 249, 235, 0.08);
-  color: var(--monitor-cream-bright);
-  line-height: 1.6;
-}
-.monitoring-page .history-fetch-status { color: var(--monitor-blue); }
-
-.monitoring-page .accuracy-intro,
-.monitoring-page .preparation-outlook,
-.monitoring-page .preparation-range-advice,
-.monitoring-page .climate-context {
-  padding: clamp(1rem, 2.2vw, 1.5rem);
-  border: 1px solid rgba(243, 237, 221, 0.14);
-  border-radius: 1rem;
-  background: rgba(255, 249, 235, 0.06);
-  color: var(--monitor-cream);
-  line-height: 1.75;
-}
-.monitoring-page .accuracy-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 1.2rem 0;
-}
-.monitoring-page .accuracy-metric {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  min-width: 0;
-  padding: clamp(1rem, 2vw, 1.5rem);
-  border: 1px solid rgba(131, 191, 255, 0.24);
-  border-radius: 1rem;
-  background: rgba(131, 191, 255, 0.07);
-}
-.monitoring-page .accuracy-metric span,
-.monitoring-page .accuracy-metric small { color: rgba(243, 237, 221, 0.7); }
-.monitoring-page .accuracy-metric strong {
-  color: var(--monitor-yellow);
-  font-family: "DM Mono", monospace;
-  font-size: clamp(1.6rem, 1.1rem + 1.7vw, 2.45rem);
-}
-.monitoring-page .accuracy-table-wrap { overflow-x: auto; margin-top: 1.1rem; border: 1px solid rgba(243, 237, 221, 0.15); border-radius: 0.85rem; }
-.monitoring-page .accuracy-table { width: 100%; min-width: 34rem; margin: 0; border-collapse: collapse; }
-.monitoring-page .accuracy-table th,
-.monitoring-page .accuracy-table td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(243, 237, 221, 0.12); text-align: left; }
-.monitoring-page .accuracy-table th { color: var(--monitor-yellow); font-family: "DM Mono", monospace; font-size: clamp(0.72rem, 0.68rem + 0.18vw, 0.85rem); }
-.monitoring-page .accuracy-table td { color: var(--monitor-cream); }
-.monitoring-page .accuracy-method-note { margin-top: 1rem; color: rgba(243, 237, 221, 0.66); font-size: clamp(0.76rem, 0.72rem + 0.18vw, 0.9rem) !important; line-height: 1.7; }
-
-.monitoring-page .preparation-outlook { margin-bottom: 1rem; border-left: 4px solid var(--monitor-yellow); }
-.monitoring-page .preparation-outlook strong { color: var(--monitor-yellow); }
-.monitoring-page .preparation-interactive { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 1rem; align-items: end; margin-bottom: 1rem; }
-.monitoring-page .preparation-interactive label { grid-column: 1 / -1; margin-bottom: -0.6rem; }
-.monitoring-page .preparation-range-advice { min-height: 100%; border-color: rgba(255, 215, 0, 0.28); }
-.monitoring-page .preparation-range-advice h3 { margin: 0.55rem 0; color: var(--monitor-yellow); }
-.monitoring-page .preparation-range-advice p { margin-bottom: 0; }
-.monitoring-page .preparation-range-label { display: inline-block; color: var(--monitor-blue); font-family: "DM Mono", monospace; }
-.monitoring-page .climate-context { margin: 1rem 0; background: rgba(189, 87, 60, 0.12); border-color: rgba(189, 87, 60, 0.32); }
-.monitoring-page .climate-context-label { display: block; margin-bottom: 0.45rem; color: #f1a18c; font-weight: 700; text-transform: uppercase; }
-.monitoring-page .climate-context p { margin: 0; }
-.monitoring-page .climate-context strong { color: var(--monitor-yellow); }
-.monitoring-page .preparation-grid { margin-top: 1rem; }
-.monitoring-page .preparation-card { min-width: 0; }
-
-@media (max-width: 700px) {
-  .monitoring-page .enhanced-calculator,
-  .monitoring-page .accuracy-metrics,
-  .monitoring-page .preparation-interactive { grid-template-columns: 1fr; }
-  .monitoring-page .preparation-interactive label { grid-column: auto; margin-bottom: 0; }
-  .monitoring-page .enhanced-calculator button { width: 100%; }
-}
-.monitoring-page .climate-source-note { margin-top: 0.7rem !important; font-size: clamp(0.74rem, 0.7rem + 0.16vw, 0.86rem) !important; color: rgba(243, 237, 221, 0.72); }
-.monitoring-page .climate-source-note a { color: var(--monitor-blue); text-underline-offset: 0.2em; }
