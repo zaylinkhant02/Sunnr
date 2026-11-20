@@ -2275,9 +2275,10 @@ if (testPersonalHeatAlertButton) {
       comparisonStatus.textContent = '';
       comparisonResult.replaceChildren();
 
-      const typicalInput = document.getElementById('typicalGeneration');
-      const hotInput = document.getElementById('hotGeneration');
-      const inputs = [typicalInput, hotInput];
+      const baselineInput = document.getElementById('baselineGeneration');
+      const scenarioInput = document.getElementById('scenarioGeneration');
+      const scenarioSelect = document.getElementById('comparisonScenario');
+      const inputs = [baselineInput, scenarioInput];
       let firstInvalid = null;
 
       inputs.forEach((input) => {
@@ -2295,26 +2296,27 @@ if (testPersonalHeatAlertButton) {
         return;
       }
 
-      const typical = Number(typicalInput.value);
-      const hot = Number(hotInput.value);
-      const difference = hot - typical;
+      const baseline = Number(baselineInput.value);
+      const scenario = Number(scenarioInput.value);
+      const scenarioLabel = scenarioSelect.options[scenarioSelect.selectedIndex].text;
+      const difference = scenario - baseline;
       const direction = difference > 0 ? 'more' : difference < 0 ? 'less' : 'the same';
       const absoluteDifference = Math.abs(difference);
       const differenceText = `${formatNumber(absoluteDifference)} kWh ${direction}`;
-      const percentage = typical === 0 ? null : (difference / typical) * 100;
+      const percentage = baseline === 0 ? null : (difference / baseline) * 100;
 
       comparisonResult.hidden = false;
-      appendResultLine(comparisonResult, 'Observed difference in solar generation: ', differenceText, false);
+      appendResultLine(comparisonResult, `${scenarioLabel}: `, differenceText, false);
 
-      if (typical === 0) {
-        appendResultLine(comparisonResult, 'Percentage change: cannot be calculated because the typical sunny day reading is zero.');
+      if (baseline === 0) {
+        appendResultLine(comparisonResult, 'Percentage change: cannot be calculated because the baseline reading is zero.');
       } else if (!Number.isFinite(percentage)) {
         appendResultLine(comparisonResult, 'Percentage change is outside the calculator range for these readings.');
       } else {
         const percentageDirection = percentage > 0 ? 'increase' : percentage < 0 ? 'decrease' : 'no change';
         appendResultLine(
           comparisonResult,
-          ` compared with the typical sunny day (${percentageDirection}).`,
+          ` compared with your normal sunny day (${percentageDirection}).`,
           `${formatNumber(Math.abs(percentage))}%`,
         );
       }
@@ -2348,40 +2350,40 @@ if (testPersonalHeatAlertButton) {
     const checks = [];
 
     if (answers.installation === 'roof') {
-      checks.push(recommendation('roof-visual', 'From the ground, look for visible panel or frame damage and new shading. Never climb onto the roof.'));
+      checks.push(recommendation('roof-visual', 'Before hot weather, look from the ground for panel damage or new shade. Never climb onto the roof.'));
     } else if (answers.installation === 'ground') {
-      checks.push(recommendation('ground-visual', 'From a safe position, look for shading, leaves or other debris, and visible panel or frame damage. Do not touch panels or electrical connections.'));
+      checks.push(recommendation('ground-visual', 'From a safe position, look for shade, leaves, debris or panel damage. Do not touch panels or connections.'));
     } else {
-      checks.push(recommendation('installation-unknown', 'Check your system paperwork to learn where the panels are mounted. Until then, look only from a safe position and never climb onto a roof.'));
+      checks.push(recommendation('installation-unknown', 'Check your paperwork to see where the panels are mounted. Look only from a safe position.'));
     }
 
     if (answers.battery === 'yes') {
-      checks.push(recommendation('battery-guidance', "Read the battery manufacturer's installation instructions, temperature limits and ventilation requirements. Keep required clearances open and do not open the battery enclosure."));
+      checks.push(recommendation('battery-guidance', "Before a heatwave, check the battery's temperature and airflow instructions. Keep the space clear and do not open it."));
     } else if (answers.battery === 'unsure') {
-      checks.push(recommendation('battery-unknown', "Check your system documents to find out whether you have a battery. If you do, follow its manufacturer's temperature and ventilation instructions."));
+      checks.push(recommendation('battery-unknown', "Check your documents for a battery and follow its temperature and airflow instructions."));
     }
 
     if (!answers.issues.has('fault')) {
       if (answers.inverter === 'yes') {
-        checks.push(recommendation('inverter-display', 'Review the inverter display or monitoring screen for warning or fault indicators. Record any message or code without opening the equipment.'));
+        checks.push(recommendation('inverter-display', 'Check the inverter screen before hot weather for warnings and note any message or code. Do not open it.'));
       } else if (answers.inverter === 'no') {
-        checks.push(recommendation('no-display', 'Do not open electrical equipment to look for a display. Ask your installer or a qualified technician how to check system status.'));
+        checks.push(recommendation('no-display', 'Do not open electrical equipment. Ask your installer how to check system status.'));
       } else {
-        checks.push(recommendation('display-unknown', 'Check your system documents to identify whether an inverter or monitoring display is available. Do not remove covers to look for one.'));
+        checks.push(recommendation('display-unknown', 'Check your documents for an inverter or monitoring display. Do not remove covers.'));
       }
     }
 
     if (answers.issues.has('shading')) {
-      checks.push(recommendation('reported-shading', 'From the ground, note when and where nearby trees or structures shade the panels. Ask a qualified provider before changing anything around the installation.'));
+      checks.push(recommendation('reported-shading', 'Note when nearby trees or structures shade the panels, especially during the hottest hours. Ask a qualified provider before changing anything.'));
     }
     if (answers.issues.has('dirt')) {
       const dirtGuidance = answers.issues.has('damage')
-        ? 'Since panel damage was reported, leave the panels untouched and have a qualified technician inspect them before arranging cleaning.'
-        : "Check for visible dirt from a safe position. Follow the manufacturer's cleaning instructions and arrange qualified help for roof access or difficult cleaning.";
+        ? 'Leave damaged panels untouched and have a qualified technician inspect them before cleaning.'
+        : "Check for visible dust from a safe position. Follow the maker's cleaning instructions and get help for roof access.";
       checks.push(recommendation('reported-dirt', dirtGuidance));
     }
     if (answers.issues.has('damage')) {
-      checks.push(recommendation('reported-damage', 'Keep clear of damaged panels. Do not touch or clean them. Wait for a qualified solar technician to inspect the system before any repair.', 'urgent'));
+      checks.push(recommendation('reported-damage', 'Keep clear of damaged panels. Do not touch or clean them; get a qualified technician to inspect them.', 'urgent'));
     }
     if (answers.issues.has('fault')) {
       checks.push(recommendation('reported-fault', "Do not open the inverter or attempt electrical work. Record any warning message or code and contact a qualified solar technician before resetting or repairing the equipment.", 'urgent'));

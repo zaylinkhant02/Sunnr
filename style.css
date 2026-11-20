@@ -9708,6 +9708,53 @@ body.site-body.about-page {
   background: rgba(255,255,255,.07);
 }
 
+.solar-output-form .solar-field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid rgba(243,237,221,.4);
+  border-radius: 0;
+  color: #fff9eb;
+  background: #214943;
+}
+
+.solar-output-form .solar-field select:focus-visible {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
+}
+
+.solar-formula-note {
+  padding: 13px 15px;
+  border-left: 3px solid #ffd700;
+  color: rgba(243,237,221,.9) !important;
+  background: rgba(255,255,255,.06);
+}
+
+.solar-formula-note code {
+  color: #fff9eb;
+  font-size: .9em;
+}
+
+.solar-calculation-note {
+  margin-top: 2px;
+  color: rgba(243,237,221,.86);
+  border-top: 1px solid rgba(243,237,221,.24);
+  border-bottom: 1px solid rgba(243,237,221,.24);
+  padding: 12px 0;
+}
+
+.solar-calculation-note summary {
+  cursor: pointer;
+  color: #fff9eb;
+  font-weight: 600;
+}
+
+.solar-calculation-note p {
+  margin: 12px 0 0;
+  font-size: .86rem;
+  line-height: 1.6;
+}
+
 .solar-field input:focus-visible,
 .solar-question input:focus-visible,
 .solar-task input:focus-visible {
