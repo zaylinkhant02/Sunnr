@@ -1,346 +1,271 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Explore heat conditions across Myanmar, then learn how the hot season and prolonged heat affect communities." />
-    <meta name="theme-color" content="#102b2a" />
-    <title>Sunnr | Myanmar Heat Information Map</title>
-    <link rel="icon" type="image/png" href="assets/images/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://videos.pexels.com" />
-    <link rel="preconnect" href="https://images.pexels.com" />
-    <link rel="preconnect" href="https://images.unsplash.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js" defer></script>
-
-  </head>
-  <body class="site-body monitoring-page">
-    <header class="site-header">
-      <nav class="navbar navbar-expand-xl site-navbar" aria-label="Main navigation">
-        <div class="container">
-          <a class="navbar-brand site-brand" href="index.html"><img src="assets/images/logo-white.png" alt="" /><span class="brand-word">Sunnr</span></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="menu-icon"></span></button>
-          <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav ms-auto align-items-xl-center">
-              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
-              <li class="nav-item"><a class="nav-link" href="solar-control.html">Solar panel control</a></li>
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="monitoring.html">Heat monitoring</a></li>
-              <li class="nav-item"><a class="nav-link" href="risk-map.html">Risk map</a></li>
-              <li class="nav-item"><a class="nav-link" href="safety.html">Safety tips</a></li>
-              <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main class="heat-monitoring-main">
-      <section class="heat-monitoring-hero" aria-labelledby="heat-monitoring-title">
-        <video class="heat-monitoring-hero-video" autoplay muted loop playsinline preload="metadata" poster="https://images.pexels.com/videos/40341871/pexels-photo-40341871.jpeg?auto=compress&w=1260&h=750&dpr=2" aria-hidden="true">
-          <source src="https://www.pexels.com/download/video/40341882/" type="video/mp4" />
-        </video>
-        <div class="heat-monitoring-heading container">
-          <h1 class="heat-monitoring-title" id="heat-monitoring-title">Feel the weather in your city</h1>
-          <p class="heat-monitoring-intro">Take a quick look at your weather dashboard today and see what you can prepare!</p>
-        </div>
-      </section>
-
-  
-      <section class="weather-dashboard" id="weather-dashboard">
-        <div class="container">
-
-          <div class="weather-dashboard-heading">
-            <div>
-              <span class="weather-eyebrow">Live Weather Monitoring</span>
-              <h2>Weather at a glance<span>.</span></h2>
-              <p>Explore current conditions and the forecast for the week ahead.</p>
-            </div>
-
-            <div class="weather-controls">
-              <div class="weather-control">
-                <label for="countrySelect">Country</label>
-                <select id="countrySelect">
-                  <option value="Myanmar">Myanmar</option>
-                </select>
-              </div>
-
-              <div class="weather-control">
-                <label for="citySelect">Select city</label>
-                <select id="citySelect">
-                  <option value="Yangon">Yangon</option>
-                  <option value="Mandalay">Mandalay</option>
-                  <option value="Naypyidaw">Naypyidaw</option>
-                  <option value="Bago">Bago</option>
-                  <option value="Mawlamyine">Mawlamyine</option>
-                  <option value="Pathein">Pathein</option>
-                  <option value="Taunggyi">Taunggyi</option>
-                  <option value="Myitkyina">Myitkyina</option>
-                  <option value="Sittwe">Sittwe</option>
-                  <option value="Monywa">Monywa</option>
-                </select>
-              </div>
-
-              <div class="weather-unit-control">
-                <button class="unit-button active" id="celsiusButton" type="button">°C</button>
-                <span>/</span>
-                <button class="unit-button" id="fahrenheitButton" type="button">°F</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="current-weather-panel">
-            <div class="current-weather-main">
-              <div class="weather-location-line">
-                <span class="weather-dot"></span>
-                <span id="weatherLocation">Yangon, Myanmar</span>
-              </div>
-
-              <p class="weather-date" id="weatherDate">Loading local date...</p>
-
-              <div class="temperature-display">
-                <span id="currentTemperature">--</span>
-                <span class="temperature-unit" id="currentUnit">°C</span>
-              </div>
-
-              <h3 id="currentWeatherDescription">Getting weather conditions...</h3>
-              <p class="feels-like">
-                Feels like <strong id="feelsLike">--</strong>
-                <span id="feelsLikeUnit">°C</span>
-              </p>
-              <p class="weather-updated" id="weatherUpdated">Waiting for weather data</p>
-            </div>
-
-            <div class="current-weather-details">
-              <div class="weather-detail">
-                <i class="bi bi-droplet"></i>
-                <span>Humidity</span>
-                <strong id="humidityValue">--%</strong>
-              </div>
-
-              <div class="weather-detail">
-                <i class="bi bi-wind"></i>
-                <span>Wind speed</span>
-                <strong id="windValue">-- km/h</strong>
-              </div>
-
-              <div class="weather-detail">
-                <i class="bi bi-cloud-rain"></i>
-                <span>Rain probability</span>
-                <strong id="rainValue">--%</strong>
-              </div>
-
-              <div class="weather-detail">
-                <i class="bi bi-sun"></i>
-                <span>UV index</span>
-                <strong id="uvValue">--</strong>
-              </div>
-
-              <div class="weather-detail">
-                <i class="bi bi-clock"></i>
-                <span>Local time</span>
-                <strong id="localTime">--:--</strong>
-              </div>
-
-              <div class="weather-detail">
-                <i class="bi bi-thermometer-half"></i>
-                <span>Today's high</span>
-                <strong id="todayHigh">--</strong>
-              </div>
-            </div>
-          </div>
-
-          <p class="weather-status" id="weatherStatus" role="status">
-            Connecting to weather service...
-          </p>
-
-          <section class="weather-alert-section" aria-labelledby="weather-alert-title">
-            <div class="section-heading-row">
-              <div>
-                <span class="weather-eyebrow">Stay Informed</span>
-                <h2 id="weather-alert-title">Weather alerts<span>.</span></h2>
-                <p>Forecast-based alerts for your selected location.</p>
-              </div>
-              <span class="alert-count" id="alertCount">0 alerts</span>
-            </div>
-
-            <div class="weather-alert-list" id="weatherAlerts">
-              <div class="weather-alert-empty">
-                <i class="bi bi-hourglass-split"></i>
-                <p>Checking the forecast for possible weather risks...</p>
-              </div>
-            </div>
-
-            <div class="personal-heat-settings">
-              <h3>Personal Heat Alerts</h3>
-              <p>Set your own temperature alert preferences.</p>
-
-              <label>
-                <input type="checkbox" id="personalHeatAlertsEnabled" checked>
-                Enable personal heat alerts
-              </label>
-
-              <div>
-                <label for="personalHeatThreshold">
-                  Temperature threshold (°C)
-                </label>
-                <input
-                  type="number"
-                  id="personalHeatThreshold"
-                  min="30"
-                  max="50"
-                  value="35"
-                >
-              </div>
-
-              <div>
-                <label for="personalHeatDays">
-                  Forecast period
-                </label>
-                <select id="personalHeatDays">
-                  <option value="1">Next 1 day</option>
-                  <option value="3" selected>Next 3 days</option>
-                  <option value="7">Next 7 days</option>
-                </select>
-              </div>
-
-              <button type="button" id="savePersonalHeatSettings">
-                Save alert settings
-              </button>
-
-              <p id="personalHeatSettingsStatus" aria-live="polite">
-                Personal heat alerts are enabled.
-              </p>
-            </div>
-
-            <div class="alert-settings">
-              <label class="alert-toggle">
-                <input type="checkbox" id="enableBrowserAlerts">
-                <span class="alert-toggle-slider"></span>
-                <span>Enable browser pop-up alerts</span>
-              </label>
-
-              <button type="button" class="weather-text-button" id="testAlertButton">
-                Test Browser Alert <i class="bi bi-arrow-up-right"></i>
-              </button>
-
-               <button type="button" class="weather-text-button" id="testPersonalHeatAlert">
-                  Test Heat Notification Alert
-                  <i class="bi bi-bell" aria-hidden="true"></i>
-              </button>
-
-              <p class="weather-help-text">
-                  This simulates a hot forecast for demonstration. It does not change live weather data or saved alert settings.
-              </p>
-            </div>
-          </section>
-
-          <section class="weekly-forecast-section" aria-labelledby="weekly-forecast-title">
-            <div class="section-heading-row">
-              <div>
-                <span class="weather-eyebrow">The Next Seven Days</span>
-                <h2 id="weekly-forecast-title">The week ahead<span>.</span></h2>
-                <p>Daily conditions and expected temperature ranges.</p>
-              </div>
-              <span class="forecast-location-label" id="forecastLocation">Yangon</span>
-            </div>
-
-            <div class="weekly-forecast-grid" id="weeklyForecast">
-              <p class="forecast-loading">Loading the seven-day forecast...</p>
-            </div>
-          </section>
-
-          <section class="weekly-metrics-section" aria-labelledby="weekly-metrics-title">
-            <div class="section-heading-row">
-              <div>
-                <span class="weather-eyebrow">Weather Data</span>
-                <h2 id="weekly-metrics-title">This week's metrics<span>.</span></h2>
-                <p>Understand how conditions may change throughout the week.</p>
-              </div>
-            </div>
-
-            <div class="weather-chart-grid">
-              <div class="weather-chart-card">
-                <div class="chart-card-heading">
-                  <div>
-                    <h3>Temperature trend</h3>
-                    <p>Daily maximum and minimum temperatures</p>
-                  </div>
-                  <i class="bi bi-thermometer-sun"></i>
-                </div>
-                <div class="weather-chart-wrap">
-                  <canvas id="temperatureChart" aria-label="Seven-day maximum and minimum temperature chart"></canvas>
-                </div>
-              </div>
-
-              <div class="weather-chart-card">
-                <div class="chart-card-heading">
-                  <div>
-                    <h3>Rainfall forecast</h3>
-                    <p>Expected daily precipitation in millimetres</p>
-                  </div>
-                  <i class="bi bi-cloud-rain"></i>
-                </div>
-                <div class="weather-chart-wrap">
-                  <canvas id="rainChart" aria-label="Seven-day rainfall chart"></canvas>
-                </div>
-              </div>
-            </div>
-
-            <div class="weekly-summary" id="weeklySummary">
-              <i class="bi bi-graph-up-arrow"></i>
-              <p>Your weekly weather summary will appear here once the forecast loads.</p>
-            </div>
-          </section>
-
-          <section class="weather-preparation-section">
-            <div class="preparation-heading">
-              <span class="weather-eyebrow">Plan Ahead</span>
-              <h2>Prepare for what's coming<span>.</span></h2>
-              <p>Practical suggestions based on the forecast for your selected city.</p>
-            </div>
-
-            <div class="preparation-grid" id="preparationAdvice">
-              <p>Preparation suggestions will appear when the forecast is available.</p>
-            </div>
-          </section>
-
-          <p class="weather-attribution">
-            Weather forecast data: Open-Meteo.
-            Forecasts are estimates and may change. Follow official local guidance
-            during emergencies.
-          </p>
-
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <div class="footer-copy">
-          <a class="footer-brand" href="index.html"><img src="assets/images/logo-white.png" alt="" /><span>Sunnr</span></a>
-          <p>Sunnr provides supplementary heatwave monitoring and preparedness information for residents of Myanmar.</p>
-        </div>
-        <nav class="footer-nav" aria-label="Footer navigation">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="risk-map.html" aria-current="page">Risk Map</a>
-          <a href="safety.html">Safety Tips</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-        <div class="footer-meta">
-          <p class="footer-copyright">© Sunnr 2026. All rights reserved.</p>
-          <a class="footer-citations-link" href="citations.html">View citations</a>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Monitor heat conditions and temperature predictions across Myanmar." />
+  <meta name="theme-color" content="#102b2a" />
+  <title>Sunnr | Heat Monitoring</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="monitoring.js" defer></script>
+</head>
+<body class="site-body monitoring-page">
+  <header class="site-header">
+    <nav class="navbar navbar-expand-xl site-navbar" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand site-brand" href="index.html"><img src="assets/images/logo-white.png" alt="" /><span class="brand-word">Sunnr</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="menu-icon"></span></button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto align-items-xl-center">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
+            <li class="nav-item"><a class="nav-link" href="solar-control.html">Solar panel control</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="monitoring.html">Heat monitoring</a></li>
+            <li class="nav-item"><a class="nav-link" href="risk-map.html">Risk map</a></li>
+            <li class="nav-item"><a class="nav-link" href="safety.html">Safety tips</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
         </div>
       </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+    </nav>
+  </header>
+
+  <main class="heat-monitoring-main">
+    <section class="heat-monitoring-hero" aria-labelledby="heat-monitoring-title">
+      <video class="heat-monitoring-hero-video" autoplay muted loop playsinline preload="metadata" poster="https://images.pexels.com/videos/40341871/pexels-photo-40341871.jpeg?auto=compress&w=1260&h=750&dpr=2" aria-hidden="true">
+        <source src="https://www.pexels.com/download/video/40341882/" type="video/mp4" />
+      </video>
+      <div class="heat-monitoring-heading container">
+        <h1 class="heat-monitoring-title" id="heat-monitoring-title">Understand the heat in your city</h1>
+        <p class="heat-monitoring-intro">Track current temperatures, explore upcoming heat conditions and prepare for periods of high heat.</p>
+      </div>
+    </section>
+
+    <section class="weather-dashboard" id="weather-dashboard">
+      <div class="container">
+        <div class="weather-dashboard-heading">
+          <div>
+            <span class="weather-eyebrow">Live Heat Monitoring</span>
+            <h2>Heat conditions at a glance<span>.</span></h2>
+            <p>Explore current temperatures and see how heat conditions may change over the next seven days.</p>
+          </div>
+          <div class="weather-controls">
+            <div class="weather-control">
+              <label for="countrySelect">Country</label>
+              <select id="countrySelect"><option value="Myanmar">Myanmar</option></select>
+            </div>
+            <div class="weather-control">
+              <label for="citySelect">Select city</label>
+              <select id="citySelect">
+                <option value="Yangon">Yangon</option><option value="Mandalay">Mandalay</option>
+                <option value="Naypyidaw">Naypyidaw</option><option value="Bago">Bago</option>
+                <option value="Mawlamyine">Mawlamyine</option><option value="Pathein">Pathein</option>
+                <option value="Taunggyi">Taunggyi</option><option value="Myitkyina">Myitkyina</option>
+                <option value="Sittwe">Sittwe</option><option value="Monywa">Monywa</option>
+              </select>
+            </div>
+            <div class="weather-unit-control">
+              <button class="unit-button active" id="celsiusButton" type="button">°C</button>
+              <span>/</span>
+              <button class="unit-button" id="fahrenheitButton" type="button">°F</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="current-weather-panel">
+          <div class="current-weather-main">
+            <div class="weather-location-line"><span class="weather-dot"></span><span id="weatherLocation">Yangon, Myanmar</span></div>
+            <p class="weather-date" id="weatherDate">Loading local date...</p>
+            <div class="temperature-display"><span id="currentTemperature">--</span><span class="temperature-unit" id="currentUnit">°C</span></div>
+            <h3 id="currentWeatherDescription">Getting heat conditions...</h3>
+            <p class="feels-like">Feels like <strong id="feelsLike">--</strong> <span id="feelsLikeUnit">°C</span></p>
+            <p class="weather-updated" id="weatherUpdated">Waiting for temperature data</p>
+          </div>
+          <div class="current-weather-details">
+            <div class="weather-detail"><i class="bi bi-droplet"></i><span>Humidity</span><strong id="humidityValue">--%</strong></div>
+            <div class="weather-detail"><i class="bi bi-sun"></i><span>UV index</span><strong id="uvValue">--</strong></div>
+            <div class="weather-detail"><i class="bi bi-clock"></i><span>Local time</span><strong id="localTime">--:--</strong></div>
+            <div class="weather-detail"><i class="bi bi-thermometer-half"></i><span>Today's high</span><strong id="todayHigh">--</strong></div>
+          </div>
+        </div>
+
+        <p class="weather-status" id="weatherStatus" role="status">Connecting to temperature service...</p>
+
+        <section class="weather-alert-section" aria-labelledby="weather-alert-title">
+          <div class="section-heading-row">
+            <div>
+              <span class="weather-eyebrow">Stay Informed</span>
+              <h2 id="weather-alert-title">Heat alerts<span>.</span></h2>
+              <p>Temperature-based alerts for your selected location.</p>
+            </div>
+            <span class="alert-count" id="alertCount">0 alerts</span>
+          </div>
+          <div class="weather-alert-list" id="weatherAlerts">
+            <div class="weather-alert-empty"><i class="bi bi-hourglass-split"></i><p>Checking the temperature outlook for possible heat risks...</p></div>
+          </div>
+
+          <div class="personal-heat-settings">
+            <h3>Personal Heat Alerts</h3>
+            <p>Choose the temperature at which you would like to receive a heat notification.</p>
+            <label><input type="checkbox" id="personalHeatAlertsEnabled" checked /> Enable personal heat alerts</label>
+            <div>
+              <label for="personalHeatThreshold">Temperature threshold (°C)</label>
+              <input type="number" id="personalHeatThreshold" min="30" max="50" value="35" />
+            </div>
+            <div>
+              <label for="personalHeatDays">Forecast period</label>
+              <select id="personalHeatDays">
+                <option value="1">Next 1 day</option><option value="3" selected>Next 3 days</option><option value="7">Next 7 days</option>
+              </select>
+            </div>
+            <button type="button" id="savePersonalHeatSettings">Save alert settings</button>
+            <p id="personalHeatSettingsStatus" aria-live="polite">Personal heat alerts are enabled.</p>
+          </div>
+
+          <div class="alert-settings">
+            <label class="alert-toggle">
+              <input type="checkbox" id="enableBrowserAlerts" />
+              <span class="alert-toggle-slider"></span>
+              <span>Enable browser pop-up alerts</span>
+            </label>
+            <button type="button" class="weather-text-button" id="testAlertButton">Test Browser Alert <i class="bi bi-arrow-up-right"></i></button>
+            <button type="button" class="weather-text-button" id="testPersonalHeatAlert">Test Heat Notification Alert <i class="bi bi-bell" aria-hidden="true"></i></button>
+            <p class="weather-help-text">The test simulates a hot forecast. It does not change live temperature data or your saved alert settings.</p>
+          </div>
+        </section>
+
+        <section class="weekly-forecast-section" aria-labelledby="weekly-forecast-title">
+          <div class="section-heading-row">
+            <div>
+              <span class="weather-eyebrow">The Next Seven Days</span>
+              <h2 id="weekly-forecast-title">Temperature predictions<span>.</span></h2>
+              <p>Compare the predicted daily high and low temperatures for your selected city.</p>
+            </div>
+            <span class="forecast-location-label" id="forecastLocation">Yangon</span>
+          </div>
+          <div class="weekly-forecast-grid" id="weeklyForecast"><p class="forecast-loading">Loading the seven-day temperature outlook...</p></div>
+        </section>
+
+        <section class="weekly-metrics-section" aria-labelledby="weekly-metrics-title">
+          <div class="section-heading-row">
+            <div>
+              <span class="weather-eyebrow">Temperature Data</span>
+              <h2 id="weekly-metrics-title">This week's temperature trend<span>.</span></h2>
+              <p>See how predicted maximum and minimum temperatures may change during the week.</p>
+            </div>
+          </div>
+          <div class="weather-chart-grid">
+            <div class="weather-chart-card">
+              <div class="chart-card-heading">
+                <div><h3>Temperature trend</h3><p>Daily maximum and minimum temperatures</p></div>
+                <i class="bi bi-thermometer-sun"></i>
+              </div>
+              <div class="weather-chart-wrap"><canvas id="temperatureChart" aria-label="Seven-day maximum and minimum temperature chart"></canvas></div>
+            </div>
+          </div>
+          <div class="weekly-summary" id="weeklySummary">
+            <i class="bi bi-graph-up-arrow"></i><p>Your weekly temperature summary will appear here once the forecast loads.</p>
+          </div>
+        </section>
+
+        <section class="temperature-comparison-section enhanced-section" aria-labelledby="temperature-comparison-title">
+          <div class="preparation-heading">
+            <span class="weather-eyebrow">Historical Temperature</span>
+            <h2 id="temperature-comparison-title">Compare past and present temperatures<span>.</span></h2>
+            <p>Choose a previous date to fetch its recorded daily high for your selected city, then compare it with today's forecast high.</p>
+          </div>
+          <div class="temperature-calculator enhanced-calculator">
+            <div class="temperature-calculator-input">
+              <label for="historicalDateInput">Choose a previous date</label>
+              <input type="date" id="historicalDateInput" />
+            </div>
+            <button type="button" id="fetchHistoricalTemperatureButton">Fetch previous temperature</button>
+            <div class="temperature-calculator-input">
+              <label for="previousTemperatureInput">Previous daily high (°C)</label>
+              <input type="number" id="previousTemperatureInput" step="0.1" placeholder="Fetched from historical data" />
+            </div>
+            <div class="temperature-calculator-input">
+              <label for="currentTemperatureInput">Today's forecast high (°C)</label>
+              <input type="number" id="currentTemperatureInput" step="0.1" readonly placeholder="Loads from forecast" />
+            </div>
+            <button type="button" id="calculateTemperatureChangeButton">Compare daily highs</button>
+            <p class="temperature-change-result" id="temperatureChangeResult" aria-live="polite">Choose a date and fetch its historical temperature to begin.</p>
+            <p class="history-fetch-status" id="historyFetchStatus" role="status">Historical data will load for the selected city.</p>
+          </div>
+        </section>
+
+        <section class="api-accuracy-section enhanced-section" aria-labelledby="api-accuracy-title">
+          <div class="preparation-heading">
+            <span class="weather-eyebrow">Forecast Check</span>
+            <h2 id="api-accuracy-title">How close was the forecast?<span>.</span></h2>
+            <p>Compare a past one-day-ahead Open-Meteo forecast with the historical temperature reference for the same dates.</p>
+          </div>
+          <div class="accuracy-intro" id="accuracyStatus" role="status">Checking the latest completed days...</div>
+          <div class="accuracy-metrics" id="accuracyMetrics">
+            <article class="accuracy-metric"><span>Average difference</span><strong id="accuracyMae">--</strong><small>Mean absolute error</small></article>
+            <article class="accuracy-metric"><span>Average bias</span><strong id="accuracyBias">--</strong><small>Forecast minus reference</small></article>
+            <article class="accuracy-metric"><span>Days compared</span><strong id="accuracyDays">--</strong><small>Matched daily highs</small></article>
+          </div>
+          <div class="accuracy-table-wrap">
+            <table class="accuracy-table">
+              <thead><tr><th>Date</th><th>Forecast high</th><th>Historical reference</th><th>Difference</th></tr></thead>
+              <tbody id="accuracyTableBody"><tr><td colspan="4">Waiting for comparison data...</td></tr></tbody>
+            </table>
+          </div>
+          <p class="accuracy-method-note">Important: the historical reference is Open-Meteo reanalysis, not a direct local weather-station observation. This is an estimate of forecast error against a model-based reference, not independently verified station accuracy.</p>
+        </section>
+
+        <section class="weather-preparation-section enhanced-section" aria-labelledby="preparation-guide-title">
+          <div class="preparation-heading">
+            <span class="weather-eyebrow">Interactive Heat Planner</span>
+            <h2 id="preparation-guide-title">Prepare for rising temperatures<span>.</span></h2>
+            <p>Use the live conditions and seven-day outlook to see what you should prepare for.</p>
+          </div>
+          <div class="preparation-outlook" id="preparationOutlook" aria-live="polite">Loading today's temperature and this week's outlook...</div>
+          <div class="preparation-interactive">
+            <label for="preparationRangeSelect">Explore preparation advice for a temperature range</label>
+            <select id="preparationRangeSelect">
+              <option value="auto">Use this week's forecast automatically</option>
+              <option value="below30">Below 30°C — warm conditions</option>
+              <option value="30-34">30–34°C — hot conditions</option>
+              <option value="35-37">35–37°C — very hot conditions</option>
+              <option value="38-39">38–39°C — intense heat</option>
+              <option value="40plus">40°C and above — extreme heat</option>
+            </select>
+            <div class="preparation-range-advice" id="preparationRangeAdvice" aria-live="polite">Your temperature-specific preparation advice will appear here.</div>
+          </div>
+          <div class="climate-context">
+            <span class="climate-context-label">Myanmar seasonal context</span>
+            <p>During peak hot season (March–April), average monthly temperatures commonly reach around <strong>30–35°C</strong>. In Naypyidaw, mean daily highs can reach about <strong>38°C in April</strong>. Use this as seasonal context — your selected city's live forecast may be different.</p>
+            <p class="climate-source-note">Climate sources: <a href="https://www.myanmarcyclingtours.com/myanmarclimate/" target="_blank" rel="noopener noreferrer">Myanmar Climate</a> and <a href="https://en.wikipedia.org/wiki/Climate_of_Myanmar" target="_blank" rel="noopener noreferrer">Climate of Myanmar</a>. SUNNR's temperature bands are practical planning guides, not official warning thresholds.</p>
+          </div>
+          <div class="preparation-grid" id="preparationAdvice"><p>General heat-preparation reminders will appear when the forecast loads.</p></div>
+        </section>
+
+        <p class="weather-attribution">Temperature forecast data: Open-Meteo. Forecasts are estimates and may change. Follow official local heat-health guidance during periods of extreme heat.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        <a class="footer-brand" href="index.html"><img src="assets/images/logo-white.png" alt="" /><span>Sunnr</span></a>
+        <p>Sunnr provides supplementary heatwave monitoring and preparedness information for residents of Myanmar.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="risk-map.html">Risk Map</a><a href="safety.html">Safety Tips</a><a href="contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta"><p class="footer-copyright">© Sunnr 2026. All rights reserved.</p><a class="footer-citations-link" href="citations.html">View citations</a></div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
 </html>
