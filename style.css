@@ -1,4 +1,4 @@
-/* Theme variables */
+﻿/* Theme variables */
 :root {
   --teal: #102b2a;
   --cream: #f3eddd;
@@ -3504,6 +3504,21 @@ body.home-page.has-scrolled .site-header {
   margin-left: clamp(1rem, 4vw, 4rem);
   color: #ffb454;
   font-weight: 400;
+}
+
+.household-preparedness-report .preparedness-credit {
+  position: absolute;
+  z-index: 1;
+  top: .75rem;
+  right: clamp(1rem, 2vw, 1.75rem);
+  margin: 0;
+  color: rgba(255, 249, 235, .85);
+  font: 400 .875rem/1.4 var(--serif);
+  text-align: right;
+}
+
+.household-preparedness-report .preparedness-credit a {
+  color: inherit;
 }
 
 .preparedness-card-grid {
